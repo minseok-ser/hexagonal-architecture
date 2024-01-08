@@ -1,30 +1,36 @@
 package net.koast.hexagonalarchitecture.account.adapter.in;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import net.koast.hexagonalarchitecture.account.application.in.AddUserUsecase;
 import net.koast.hexagonalarchitecture.account.domain.UserDTO;
 import net.koast.hexagonalarchitecture.common.ResultResponse;
 
-@Controller
+@RestController
 @RequiredArgsConstructor
+@Slf4j
 class AddUser {
 
   private final AddUserUsecase addUserUsecase;
-
-  @GetMapping (value = "/")
-  String addUser(HttpServletRequest request) {
-    return "request/addUser";
-  }
   
   @PostMapping(path = "/account/adduser")
-  ResultResponse<String> addUser(UserDTO dto) {
+  ResultResponse<String> addUser(@Valid UserDTO dto, BindingResult bindingResult) {
+
+    log.info(bindingResult.getAllErrors().toString());
+    if(bindingResult.getAllErrors().size() > 0) {
+      return ResultResponse.<String>builder().status(200).payload(bindingResult.getAllErrors().get(0).getDefaultMessage()).build();
+    }
+    
     String message = "";
     if (dto.getUserId() == null || "".equals(dto.getUserId())) message = "id is null";
     else if (dto.getName() == null || "".equals(dto.getName())) message = "name is null";

@@ -3,8 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+
+    <style>
+        .item-name {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 150px;
+            border: 1px solid black;
+            text-align: center;
+            padding-right: 5px;
+            border-radius: 30px;
+            background: grey;
+            color: white;
+        }
+        
+        .item {
+            display: inline-block;
+
+        }  
+    </style>
 </head>
-<body>
-Hello addUser
-</body>
+    <body>
+        <form th:action="@{/account/adduser}" th:object="${userDto}" method="post" >
+            <div>
+                <div class="item-name">id</div>
+                <div class="item"><input name="id"></div>
+            </div>
+            <div>
+                <div class="item-name">이름</div>
+                <div class="item"><input name="name"></div>
+            </div>
+            <div>
+                <div class="item-name">비밀번호</div>
+                <div class="item"><input name="password"></div>
+            </div>
+            <div>
+                <div class="item-name">비밀번호 변경</div>
+                <div class="item"><input name="password-retype"></div>
+            </div>
+            <div><button type="submit">등록</button></div>
+        </form>
+    </body>
 </html>

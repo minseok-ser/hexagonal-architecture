@@ -11,4 +11,9 @@ public class PageController {
   public String addUser(HttpServletRequest request) {
     return "request/addUser";
   }
+
+  @GetMapping (value = "/getUser")
+  public String getUser(HttpServletRequest request) {
+    return "request/getUser";
+  }
 }

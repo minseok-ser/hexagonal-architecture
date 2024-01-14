@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        .item-name {
+            display: inline-block;
+            box-sizing: border-box;
+            width: 150px;
+            border: 1px solid black;
+            text-align: center;
+            padding-right: 5px;
+            border-radius: 30px;
+            background: grey;
+            color: white;
+        }
+        
+        .item {
+            display: inline-block;
+
+        }  
+    </style>
+</head>
+    <body>
+        <form th:action="@{/account/getuser}" method="get" >
+            <div>
+                <div class="item-name">id</div>
+                <div class="item"><input name="userId"></div>
+            </div>
+            <div><button type="submit">계정정보보기</button></div>
+        </form>
+    </body>
+</html>

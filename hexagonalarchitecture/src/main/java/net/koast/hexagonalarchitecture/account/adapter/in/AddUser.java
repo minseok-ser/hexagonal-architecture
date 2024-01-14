@@ -28,7 +28,7 @@ class AddUser {
 
     log.info(bindingResult.getAllErrors().toString());
     if(bindingResult.getAllErrors().size() > 0) {
-      return ResultResponse.<String>builder().status(200).payload(bindingResult.getAllErrors().get(0).getDefaultMessage()).build();
+      return ResultResponse.<String>builder().status(200).payload(null).message(bindingResult.getAllErrors().get(0).getDefaultMessage()).build();
     }
     
     String message = "";
@@ -37,14 +37,14 @@ class AddUser {
     else if (dto.getPassword() == null || "".equals(dto.getPassword())) message = "password is null";
     else if (!dto.getPassword().equals(dto.getPasswordRetyped())) message = "password not equal";
     if(!"".equals(message)) {
-      return ResultResponse.<String>builder().status(200).payload(message).build();
+      return ResultResponse.<String>builder().status(200).payload(null).message(message).build();
     } else {
       try {
         if (addUserUsecase.addUser(dto)) message = "ok";
         else message = "duplicated id";
-        return ResultResponse.<String>builder().status(200).payload(message).build();
+        return ResultResponse.<String>builder().status(200).payload(null).message(message).build();
       } catch (Exception e) {
-        return ResultResponse.<String>builder().status(200).payload(e.getMessage()).build();
+        return ResultResponse.<String>builder().status(200).payload(null).message(e.getMessage()).build();
       }
     }
   }
